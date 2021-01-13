@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
+
 public class Main {
 
     public static void main(String[] args) throws ParseException {
@@ -13,7 +14,7 @@ public class Main {
     // Створіть метод, який дозволяє видаляти будь який елемент по індексу
     // в одновимірному масиві int[] Новий масив повинен повертатися з методу.
     public static int[] deleteElementFrom(int[] initialArray, int index) {
-        if (index > initialArray.length || index < 0) {
+        if (index > initialArray.length || index < 0 || initialArray.length == 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -33,7 +34,7 @@ public class Main {
     // у любому напрямку - приклад  йцууцй)Метод повинен повертати паліндром ,
     // який має найбільшу довжину серед знайдених, якщо не знайдено ні одного,
     // повертає пустий рядок "". Приклад при параметрі "qwertyolo" результат буде "olo".
-    public static String findLargestPalindrome(String str) {
+    public static String findLargestPalindromeIn(String str) {
         if (str.length() < 3) {
             return "";
         }
@@ -55,21 +56,27 @@ public class Main {
         return str.substring(matchBegin, matchEnd);
     }
 
-    public static boolean isPalindrome(String str) {
+    private static boolean isPalindrome(String str) {
         return str.equals(new StringBuilder(str).reverse().toString());
     }
 
-    //Створіть метод, який перевертає будь яке слово.
+    // Створіть метод, який перевертає будь яке слово.
     // Наприклад- на вході травень на виході ьневарт
     public static String Reverse(String str) {
-        return new StringBuilder(str).reverse().toString();
+        var builder = new StringBuilder(str.length());
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            builder.append(str.charAt(i));
+        }
+
+        return builder.toString();
     }
 
     // Створіть метод, який приймає параметр String у форматі "11.01.21"
     // та повертає кількість діб з початку року до цієї дати.
     // Ви повинні врахувати, що у лютому може бути різна кількість дат.
     public static long calculateDaysFromYearBeginTo(String dateString) throws ParseException {
-        var formatter = new SimpleDateFormat("dd.MM.yyyy");
+        var formatter = new SimpleDateFormat("dd.MM.yy");
 
         var date = formatter.parse(dateString);
 
