@@ -13,19 +13,18 @@ public class Main {
 
     // Створіть метод, який дозволяє видаляти будь який елемент по індексу
     // в одновимірному масиві int[] Новий масив повинен повертатися з методу.
-    public static int[] deleteElementFrom(int[] initialArray, int index) {
-        if (index > initialArray.length || index < 0 || initialArray.length == 0) {
+    public static int[] deleteElementFromArray(int[] arr, int index) {
+        if (index > arr.length || index < 0 || arr.length == 0) {
             throw new IndexOutOfBoundsException();
         }
 
-        var newArray = new int[initialArray.length - 1];
-        for (int i = 0; i < index; i++) {
-            newArray[i] = initialArray[i];
+        var newArray = new int[arr.length - 1];
+        System.arraycopy(arr, 0, newArray, 0, index);
+
+        if (arr.length - (index + 1) >= 0) {
+            System.arraycopy(arr, index + 1, newArray, index + 1 - 1, arr.length - (index + 1));
         }
 
-        for (int i = index + 1; i < initialArray.length; i++) {
-            newArray[i - 1] = initialArray[i];
-        }
         return newArray;
     }
 
@@ -34,7 +33,7 @@ public class Main {
     // у любому напрямку - приклад  йцууцй)Метод повинен повертати паліндром ,
     // який має найбільшу довжину серед знайдених, якщо не знайдено ні одного,
     // повертає пустий рядок "". Приклад при параметрі "qwertyolo" результат буде "olo".
-    public static String findLargestPalindromeIn(String str) {
+    public static String findLargestPalindromeInString(String str) {
         if (str.length() < 3) {
             return "";
         }
@@ -75,7 +74,7 @@ public class Main {
     // Створіть метод, який приймає параметр String у форматі "11.01.21"
     // та повертає кількість діб з початку року до цієї дати.
     // Ви повинні врахувати, що у лютому може бути різна кількість дат.
-    public static long calculateDaysFromYearBeginTo(String dateString) throws ParseException {
+    public static long calculateDaysFromYearBeginToDate(String dateString) throws ParseException {
         var formatter = new SimpleDateFormat("dd.MM.yy");
 
         var date = formatter.parse(dateString);
