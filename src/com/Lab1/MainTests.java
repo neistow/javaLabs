@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.stream.Stream;
 
 public class MainTests {
+
     @ParameterizedTest
     @MethodSource("provideInvalidIndexesForDeleteElementFromArray")
     void DeleteElementFromArray_InvalidIndexPassed_ThrowsOutOfBoundException(int index) {
@@ -25,11 +26,7 @@ public class MainTests {
     private static Stream<Arguments> provideInvalidIndexesForDeleteElementFromArray() {
         return Stream.of(
                 Arguments.of(-1),
-                Arguments.of(-2),
-                Arguments.of(-3),
-                Arguments.of(5),
-                Arguments.of(6),
-                Arguments.of(7)
+                Arguments.of(5)
         );
     }
 
@@ -106,12 +103,5 @@ public class MainTests {
     @Test
     void FindMinAmong_NoArgumentsPassed_ThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, Main::findMinAmong);
-    }
-
-    @Test
-    void FindMinAmong_ValidArgumentsPassed_ReturnsMinValueAmongArrays() {
-        var result = Main.findMinAmong(new int[]{1, 2, 3, 4 - 5, 1}, new int[]{10, 20, 100, -56, -320}, new int[]{-10, -33, 1058, 579});
-
-        assertEquals(result, -320);
     }
 }
