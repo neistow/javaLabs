@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ProductRepository implements RepositoryBase<Product> {
@@ -31,17 +32,16 @@ public class ProductRepository implements RepositoryBase<Product> {
     }
 
     @Override
-    public Product GetById(int id) throws SQLException {
+    public Optional<Product> GetById(int id) throws SQLException {
         var stmt = connection.createStatement();
         String sql = "select p.id, p.name, p.price, pt.id as typeId, pt.name as typeName from main.products p join productTypes pt on pt.id = p.typeId where p.id = " + id;
 
         var resultSet = stmt.executeQuery(sql);
         if (!resultSet.next()) {
-            return null;
+            return Optional.empty();
         }
 
-        return new Product(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getFloat("price"),
-                new ProductType(resultSet.getInt("typeId"), resultSet.getString("typeName")));
+        return Optional.of(new Product(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getFloat("price"), new ProductType(resultSet.getInt("typeId"), resultSet.getString("typeName"))));
     }
 
     @Override

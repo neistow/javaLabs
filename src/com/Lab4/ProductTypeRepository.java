@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductTypeRepository implements RepositoryBase<ProductType> {
     private final Connection connection;
@@ -29,16 +30,16 @@ public class ProductTypeRepository implements RepositoryBase<ProductType> {
     }
 
     @Override
-    public ProductType GetById(int id) throws SQLException {
+    public Optional<ProductType> GetById(int id) throws SQLException {
         var stmt = connection.createStatement();
         String sql = "select * from productTypes where id = " + id;
 
         var resultSet = stmt.executeQuery(sql);
         if (!resultSet.next()) {
-            return null;
+            return Optional.empty();
         }
 
-        return new ProductType(resultSet.getInt("id"), resultSet.getString("name"));
+        return Optional.of(new ProductType(resultSet.getInt("id"), resultSet.getString("name")));
     }
 
     @Override

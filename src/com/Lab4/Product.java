@@ -1,5 +1,8 @@
 package com.Lab4;
 
+
+
+
 public class Product{
     private int id;
     private String name;
